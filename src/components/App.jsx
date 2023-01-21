@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { nanoid } from "nanoid";
+// import { nanoid } from "nanoid";
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import ContactList from './ContactList';
@@ -14,54 +14,27 @@ class App extends Component {
       {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
       {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
     ],
-    name: "sdf",
-    number: "dfg",
+    filter: "",
   }
 
-  deleteContact = (contactId) => {
+  deleteContact = contactId => {
     this.setState(prevState => ({
       contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }))
+    }));
   }
 
-  handleInputChange = event => {
-    const {name, value} = event.currentTarget;
-    this.setState({
-      [name]: value,
-    })
-  }
-
-  handleFormSubmit = (event) => {
-    event.preventDefault();
-    const {contacts, name, number} = this.state;
-
-    const isNameAlreadyHere = contacts.filter(contact => contact.name === name).length;
-    if(isNameAlreadyHere){
-      alert('Вже є');
-      return;
-    };
-
-    const newContact = {
-      name: name,
-      number: number,
-      id: nanoid(),
-    }
-
+  formSubmitHandler = data => {
     this.setState(prevState => {
-      return {contacts: [...prevState.contacts, newContact]};
+      return {contacts: [...prevState.contacts, data]};
     });
-  };
+  }
   
   render() {
-    const {contacts, name, number} = this.state;
+    const {contacts} = this.state;
     return (
       <div className={styles.app}>
         <h1>Phonebook</h1>
-        <ContactForm 
-          name={name}
-          number={number}
-          onFormSubmit={this.handleFormSubmit}
-          handleInputChange={this.handleInputChange} />
+        <ContactForm onSubmit={this.formSubmitHandler} contacts={contacts} />
 
         <h2>Contacts</h2>
         <Filter  />
