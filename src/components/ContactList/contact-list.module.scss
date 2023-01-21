@@ -1,0 +1,12 @@
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 10px;
+    background-color: #fff;
+    border: 1px solid gray;
+    border-radius: 3px;
+    & > svg {
+        fill: grey;
+    }
+}
