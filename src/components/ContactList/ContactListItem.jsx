@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
 
-import { BsFillXSquareFill } from "react-icons/bs";
+import { HiXMark } from "react-icons/hi2";
 
 import styles from './contact-list.module.scss';
 
 const ContactListItem = ({id, name, number, onDeleteContact}) => {
     return (
-        <li>
+        <li className={styles.listItem}>
             <span>{name}: </span><span>{number}</span>
             <button onClick={() => onDeleteContact(id)} type="button" className={styles.btn}>
-                Delete <BsFillXSquareFill />
+                <HiXMark />
             </button>
         </li>
     );

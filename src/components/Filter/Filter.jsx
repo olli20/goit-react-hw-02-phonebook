@@ -1,10 +1,17 @@
 import PropTypes from 'prop-types';
 
+import styles from './filter.module.scss';
+
 const Filter = ({filter, onFilter}) => {
     return (
         <>
-            <p>Find contacts by name</p>
-            <input type="text" value={filter} onChange={onFilter}  />
+            <p className={styles.message}>Find contacts by name</p>
+                <input 
+                type="text"
+                value={filter} 
+                onChange={onFilter} 
+                className={styles.input}  
+            />
         </>
     )
 }
