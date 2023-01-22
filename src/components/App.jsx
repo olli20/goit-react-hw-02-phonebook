@@ -9,10 +9,11 @@ import styles from './app.module.scss';
 class App extends Component {
   state = {
     contacts: [
-      {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
-      {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
-      {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
-      {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+      {id: 'id-1', name: 'General emergencies', number: '112'},
+      {id: 'id-2', name: 'Police', number: '102'},
+      {id: 'id-3', name: 'Ambulance', number: '103'},
+      {id: 'id-4', name: 'Fire', number: '101'},
+      {id: 'id-5', name: 'Gas emergency', number: '104'},
     ],
     filter: "",
   }
@@ -28,17 +29,35 @@ class App extends Component {
       return {contacts: [...prevState.contacts, data]};
     });
   }
+
+  changeFilter = event => {
+    this.setState({filter: event.currentTarget.value});
+  }
+
+  getFilteredContacts = () => {
+    const {contacts, filter} = this.state;
+
+    if (filter.trim().length === 0) {
+      return false;
+    }
+    return contacts.filter(contact => contact.name.toLowerCase().includes(filter.trim().toLowerCase()));
+  }
   
   render() {
-    const {contacts} = this.state;
+    const {contacts, filter} = this.state;
+    const filteredContacts = this.getFilteredContacts();
+
     return (
       <div className={styles.app}>
         <h1>Phonebook</h1>
         <ContactForm onSubmit={this.formSubmitHandler} contacts={contacts} />
 
         <h2>Contacts</h2>
-        <Filter  />
-        <ContactList contacts={contacts} onDeleteContact={this.deleteContact} />
+        <Filter filter={filter} onFilter={this.changeFilter} />
+        <ContactList 
+          contacts={!filteredContacts ? contacts : filteredContacts} 
+          onDeleteContact={this.deleteContact} 
+        />
       </div>
     );
   } 
