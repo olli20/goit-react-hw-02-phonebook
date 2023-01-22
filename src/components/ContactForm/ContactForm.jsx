@@ -17,7 +17,7 @@ class ContactForm extends Component {
         const {name, value} = event.currentTarget;
         this.setState({
           [name]: value,
-        })
+        });
     }
 
     handleFormSubmit = event => {
@@ -35,14 +35,14 @@ class ContactForm extends Component {
           name: name,
           number: number,
           id: nanoid(),
-        }
+        };
 
         this.props.onSubmit(newContact);
         this.reset();
     }
 
     reset = () => {
-        this.setState({ name: "", number: "", })
+        this.setState({ name: "", number: "", });
     }
 
     render() {
@@ -80,7 +80,7 @@ class ContactForm extends Component {
                 </div>
                 <button type="submit" className={styles.btn}>Add contact</button>
             </form> 
-    );}
+    )}
 }
 
 export default ContactForm;
